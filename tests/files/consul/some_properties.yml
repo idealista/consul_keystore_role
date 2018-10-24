@@ -1,0 +1,11 @@
+my:
+  cool:
+    property: 1
+
+another_cool_property: yeah
+
+nested:
+  first:
+    property: 1
+  second:
+    property: 2

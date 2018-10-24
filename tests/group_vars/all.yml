@@ -1,0 +1,50 @@
+---
+consul_server_nodes:
+  - consul01
+  - consul02
+  - consul03
+consul_domain: test
+consul_datacenter: test
+
+consul_acl: true
+consul_acl_default_policy: deny
+
+## ACL for discovery synchronization between servers
+consul_acl_configuration_list:
+  Agent:
+    token_type: client
+    token: "{{ consul_acl_agent_token }}"
+    rules:
+      - node: ""
+        policy: write
+      - service: ""
+        policy: write
+  ## ACL for anonymous UI reading
+  Anonymous Token:
+    token_type: client
+    token: anonymous
+    rules:
+      - key: ""
+        policy: read
+      - node: ""
+        policy: read
+      - service: ""
+        policy: read
+  Key Store Updater:
+    token_type: client
+    token: "{{ consul_keystore_acl_token }}"
+    rules:
+      - key: ""
+        policy: write
+
+
+# KEYSTORE
+consul_keystore_server: "{{ consul_server_nodes | first }}"
+consul_keystore_acl_token: keystore
+consul_keystore_name: test
+consul_keystore_expand_keys: true
+
+consul_keystore_properties_files:
+  - some_properties
+  - another_properties
+  - more
