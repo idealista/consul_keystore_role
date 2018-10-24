@@ -67,6 +67,12 @@ Look to the [defaults](defaults/main.yml) properties file to see the possible co
 molecule test
 ```
 
+or
+
+```sh
+./tests/scripts/run-test.sh
+```
+
 ## Built With
 
 ![Ansible](https://img.shields.io/badge/ansible-2.4.3.0-green.svg)
