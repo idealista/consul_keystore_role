@@ -10,6 +10,6 @@ pip install ansible==2.4.3.0
 pip install ansible-lint==3.4.20
 pip install python-vagrant
 pip install python-consul
-molecule converge
+molecule test
 deactivate
 rm -rf venv
