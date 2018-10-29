@@ -1,5 +1,7 @@
 ![Logo](https://raw.githubusercontent.com/idealista/consul_keystore-role/master/logo.gif)
 
+[![Build Status](https://travis-ci.org/idealista/consul_keystore-role.png)](https://travis-ci.org/idealista/consul_keystore-role)
+
 # Consul Keystore Ansible role
 
 Ansible role to manage Consul Keystore.
