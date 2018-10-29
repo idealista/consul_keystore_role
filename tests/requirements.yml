@@ -1,0 +1,4 @@
+---
+- src: idealista.consul-role
+  version: 1.2.1
+  name: consul

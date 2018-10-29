@@ -1,0 +1,10 @@
+---
+- name: Consul | Keys
+  include_tasks: consul_keys_publication.yml
+  run_once: true
+  vars:
+    consul_keystore_properties_file: "{{ item }}"
+  with_items: "{{ consul_keystore_properties_files }}"
+  tags:
+    - consul_keystore_configure
+  when: consul_keystore_name is defined

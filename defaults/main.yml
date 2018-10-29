@@ -1,0 +1,18 @@
+---
+
+consul_keystore_server: localhost
+consul_keystore_http_port: 8500
+
+# ACLs #
+consul_keystore_acl_token: keystore
+
+# KEYSTORE
+consul_keystore_properties_path: "{{ playbook_dir }}/files/consul"
+
+# PROPERTIES
+consul_keystore_mountpoint: config
+# consul_keystore_name: test
+
+consul_keystore_expand_keys: true
+
+consul_keystore_properties_files: []
