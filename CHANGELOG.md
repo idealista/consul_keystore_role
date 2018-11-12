@@ -7,6 +7,10 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a ch
 
 [Full Changelog](https://github.com/idealista/consul_keystore-role/compare/master...develop)
 
+### Fixed
+
+ - *[#3](https://github.com/idealista/consul-keystore_role/issues/3) Fix property is ansible changed if no value is setted* @jmonterrubio
+
 ## [1.0.0] - 2018-10-10
 
 ### Added
