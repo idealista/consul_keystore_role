@@ -159,7 +159,10 @@ def _has_value_changed(consul_client, key, target_value):
     if not existing:
         return index, True
     try:
-        changed = to_text(existing['Value'], errors='surrogate_or_strict') != target_value
+        if not target_value and not existing['Value']:
+            changed = False
+        else:
+            changed = to_text(existing['Value'], errors='surrogate_or_strict') != target_value
         return index, changed
     except UnicodeError:
         # Existing value was not decodable but all values we set are valid utf-8

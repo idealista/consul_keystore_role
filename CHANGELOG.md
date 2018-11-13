@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a ch
 
 ### Fixed
 
+- *[#3](https://github.com/idealista/consul-keystore_role/issues/3) Fix property is ansible changed if no value is setted* @jmonterrubio
 - *[#4](https://github.com/idealista/consul-keystore_role/issues/4) Fix boolean values converted with capital letter* @jmonterrubio
 
 ## [1.0.0] - 2018-10-10
