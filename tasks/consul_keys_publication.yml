@@ -53,7 +53,7 @@
         port: "{{ consul_keystore_http_port }}"
         token: "{{ consul_keystore_acl_token }}"
         key: "{{ consul_key_parent + '/' + (( consul_keystore_expand_keys == True ) | ternary( property.key | regex_replace('\\.', '/'), property.key)) }}"
-        value: "{{ property.value }}"
+        value: "{{ (property.value | bool) | ternary(property.value | lower, property.value) }}"
       with_dict: "{{ consul_to_upload_properties }}"
       loop_control:
         loop_var: property
@@ -116,7 +116,7 @@
         port: "{{ consul_keystore_http_port }}"
         token: "{{ consul_keystore_acl_token }}"
         key: "{{ consul_key_parent + '/' + (( consul_keystore_expand_keys == True ) | ternary( property.key | regex_replace('\\.', '/'), property.key)) }}"
-        value: "{{ property.value }}"
+        value: "{{ (property.value | bool) | ternary(property.value | lower, property.value) }}"
       with_dict: "{{ consul_to_upload_properties }}"
       loop_control:
         loop_var: property
