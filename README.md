@@ -23,14 +23,12 @@ These instructions will get you a copy of the role for your Ansible Playbook. On
 
 ### Prerequisities
 
-Ansible 2.4.3.0 version installed.
-Molecule 1.25 version installed.
-Ansible-Lint 3.4.20 version installed.
-python-consul 1.1.0 version installed
+Ansible >= 2.4.3.0
 
 Inventory destination should be a Debian environment.
 
-For testing purposes, [Molecule](https://molecule.readthedocs.io/) with [Vagrant](https://www.vagrantup.com/) as driver (with [hostmanager](https://github.com/devopsgroup-io/vagrant-hostmanager) plugin) and [VirtualBox](https://www.virtualbox.org/) as provider.
+For testing purposes, [Molecule](https://molecule.readthedocs.io/) with [Docker](https://www.docker.com/) as driver.
+See [test-requirements](test-requirements.txt).
 
 ### Installing
 
@@ -66,13 +64,8 @@ Look to the [defaults](defaults/main.yml) properties file to see the possible co
 ## Testing
 
 ```sh
-molecule test
-```
-
-or
-
-```sh
-./tests/scripts/run-test.sh
+$ pipenv install -r test-requirements.txt --python 2.7
+$ pipenv run molecule test
 ```
 
 ## Built With
