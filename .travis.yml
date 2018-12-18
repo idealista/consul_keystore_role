@@ -1,6 +1,5 @@
 ---
 language: python
-python: "2.7.13"
 sudo: required
 
 services:
@@ -8,13 +7,14 @@ services:
 
 matrix:
   include:
-    - env: ENV_PYTHON=2.7 REQUIREMENTS=test-requirements-27.txt
-    - env: ENV_PYTHON=3.6 REQUIREMENTS=test-requirements-36.txt
+    - python: 2.7
+      env: REQUIREMENTS=test-requirements-27.txt
+    - python: 3.6
+      env: REQUIREMENTS=test-requirements-36.txt
   fast_finish: true
 
 install:
-  - pip install pipenv
-  - pipenv install -r $REQUIREMENTS --python $ENV_PYTHON
+  - pipenv install -r $REQUIREMENTS
 script:
   - pipenv run molecule test
 
