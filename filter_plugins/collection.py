@@ -25,5 +25,5 @@ class FilterModule(object):
 
     def filters(self):
         return {
-            'flatten': flatten
+            'flatten_collection': flatten
         }
