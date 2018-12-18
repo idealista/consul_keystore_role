@@ -7,6 +7,12 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a ch
 
 [Full Changelog](https://github.com/idealista/consul_keystore-role/compare/master...develop)
 
+## [1.0.2] - 2018-12-18
+
+### Fixed
+
+- *[#10](https://github.com/idealista/consul-keystore_role/issues/10) Fix problem removing properties in python 3* @jmonterrubio
+
 ## [1.0.1] - 2018-11-13
 
 ### Fixed
@@ -21,6 +27,7 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a ch
 
 *Initial version* @jmonterrubio
 
+[1.0.2]: https://github.com/idealista/consul_keystore-role/tree/1.0.2
 [1.0.1]: https://github.com/idealista/consul_keystore-role/tree/1.0.1
 [1.0.0]: https://github.com/idealista/consul_keystore-role/tree/1.0.0
 [Unreleased]: https://github.com/idealista/consul_keystore-role/tree/develop

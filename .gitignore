@@ -6,3 +6,5 @@ tests/__pycache__
 .vagrant
 venv/
 *.pyc
+Pipfile
+Pipfile.lock

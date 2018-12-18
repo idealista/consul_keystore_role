@@ -1,0 +1,6 @@
+---
+
+- name: Environment
+  hosts: consul
+  roles:
+    - consul_keystore-role

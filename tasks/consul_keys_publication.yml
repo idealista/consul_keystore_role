@@ -22,7 +22,7 @@
 
     - name: Set consul_to_upload_properties
       set_fact:
-        consul_to_upload_properties: "{{ consul_yaml_file | flatten(sep=consul_key_separator) }}"
+        consul_to_upload_properties: "{{ consul_yaml_file | flatten_collection(sep=consul_key_separator) }}"
 
     - name: Consul | Read {{ consul_key_parent }} properties
       consul_keystore:
@@ -30,13 +30,13 @@
         port: "{{ consul_keystore_http_port }}"
         token: "{{ consul_keystore_acl_token }}"
         key: "{{ consul_key_parent + '/' }}"
-        recurse: yes
+        recurse: true
         state: present
       register: consul_backup_properties
 
     - name: Set consul_backup_keys
       set_fact:
-        consul_backup_keys: "{{ consul_backup_properties.data | map(attribute='Key') | map('regex_replace', consul_key_parent + '/') | list | filter }}"
+        consul_backup_keys: "{{ consul_backup_properties.data | map(attribute='Key') | map('regex_replace', consul_key_parent + '/') | list | filter | list}}"
 
     - name: Update consul_backup_keys expanded
       set_fact:
@@ -93,13 +93,13 @@
         port: "{{ consul_keystore_http_port }}"
         token: "{{ consul_keystore_acl_token }}"
         key: "{{ consul_key_parent + '/' }}"
-        recurse: yes
+        recurse: true
         state: present
       register: consul_backup_properties
 
     - name: Set consul_backup_keys
       set_fact:
-        consul_backup_keys: "{{ consul_backup_properties.data | map(attribute='Key') | map('regex_replace', consul_key_parent + '/') | list | filter }}"
+        consul_backup_keys: "{{ consul_backup_properties.data | map(attribute='Key') | map('regex_replace', consul_key_parent + '/') | list | filter | list }}"
 
     - name: Update consul_backup_keys expanded
       set_fact:
