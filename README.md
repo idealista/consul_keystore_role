@@ -30,7 +30,7 @@ Other combinations may work but they're not tested.
 Inventory destination should be a Debian environment.
 
 For testing purposes, [Molecule](https://molecule.readthedocs.io/) with [Docker](https://www.docker.com/) as driver.
-See [test-requirements](test-requirements.txt).
+See [test-requirements-27](test-requirements-27.txt) and [test-requirements-36](test-requirements-36.txt).
 
 ### Installing
 
