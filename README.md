@@ -23,7 +23,9 @@ These instructions will get you a copy of the role for your Ansible Playbook. On
 
 ### Prerequisities
 
-Ansible >= 2.4.3.0
+Ansible 2.5.5.0
+Python 3.6 or Python 2.7
+Other combinations may work but they're not tested.
 
 Inventory destination should be a Debian environment.
 
@@ -64,13 +66,20 @@ Look to the [defaults](defaults/main.yml) properties file to see the possible co
 ## Testing
 
 ```sh
-$ pipenv install -r test-requirements.txt --python 2.7
+$ pipenv install -r test-requirements-27.txt --python 2.7
+$ pipenv run molecule test
+```
+
+and
+
+```sh
+$ pipenv install -r test-requirements-36.txt --python 3.6
 $ pipenv run molecule test
 ```
 
 ## Built With
 
-![Ansible](https://img.shields.io/badge/ansible-2.4.3.0-green.svg)
+![Ansible](https://img.shields.io/badge/ansible-2.5.5.0-green.svg)
 
 ## Versioning
 
