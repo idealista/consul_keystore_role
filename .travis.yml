@@ -8,17 +8,15 @@ services:
 
 matrix:
   include:
-    - env: ENV_PYTHON=2.7
-    - env: ENV_PYTHON=3.6
+    - env: ENV_PYTHON=2.7 REQUIREMENTS=test-requirements-27.txt
+    - env: ENV_PYTHON=3.6 REQUIREMENTS=test-requirements-36.txt
   fast_finish: true
 
 install:
   - pip install pipenv
-  - pipenv install -r test-requirements.txt --python $ENV_PYTHON
+  - pipenv install -r $REQUIREMENTS --python $ENV_PYTHON
 script:
   - pipenv run molecule test
-  - pipenv --rm
-  - rm Pipfile*
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
