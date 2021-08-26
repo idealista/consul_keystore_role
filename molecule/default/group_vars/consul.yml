@@ -1,3 +1,4 @@
 ---
+consul_version: 1.2.3
 consul_server: true
 consul_ui: true

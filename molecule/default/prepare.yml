@@ -1,17 +1,11 @@
 ---
-- name: Prepare
-  hosts: all
-  gather_facts: false
-  tasks:
-    - name: installing required libs
-      apt:
-        pkg: "{{ item }}"
-        state: present
-      with_items:
-        - net-tools
-        - netcat
 
-- name: Environment
+- name: Prepare
   hosts: consul
-  roles:
-    - consul
+  tasks:
+    - name: Install rsyslog
+      include_role:
+        name: rsyslog
+    - name: Install consul
+      include_role:
+        name: consul

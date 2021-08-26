@@ -1,4 +1,11 @@
 ---
-- src: idealista.consul-role
-  version: 1.2.1
+
+- src: https://github.com/idealista/rsyslog_role.git
+  scm: git
+  version: 2.2.1
+  name: rsyslog
+
+- src: https://github.com/idealista/consul_role.git
+  scm: git
+  version: 1.7.1
   name: consul

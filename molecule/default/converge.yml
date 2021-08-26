@@ -3,4 +3,4 @@
 - name: Environment
   hosts: consul
   roles:
-    - consul_keystore-role
+    - consul_keystore_role

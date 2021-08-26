@@ -15,4 +15,16 @@ consul_keystore_mountpoint: config
 
 consul_keystore_expand_keys: true
 
+# Example:
+# consul_keystore_properties_files:
+# When you have properties as .yml and you want to put as key-value each property defined
+#   - name: some_properties.yml
+#     format: kv
+# When you have properties as .properties and you want to put as key-value each property defined
+#   - name: more.properties
+#     format: kv
+# When you have properties as yml and you want to put entire file to consul as key defined below. If key not supplied 'data' as default.
+#   - name: full_yml.yml
+#     key: data
+#     format: file
 consul_keystore_properties_files: []
