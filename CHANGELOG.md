@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a ch
 - *[#13](https://github.com/idealista/consul_keystore_role/issues/13) Support for put entire yml files to consul keystore* @adrian-arapiles
 - *Added tests for entire yml put on consul keystore* @adrian-arapiles
 - *Add ansible-lint and improve yamllint* @adrian-arapiles
+- *Add migrate guide from 1.x.x to 2.0.0* @adrian-arapiles
 
 ### Changed
 - *Improve task to avoid unnecessary skipped or loops* @adrian-arapiles
