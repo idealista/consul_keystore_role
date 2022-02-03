@@ -1,23 +1,25 @@
 ---
+dist: xenial
 language: python
-sudo: required
-
+python: "3.7"
+os: linux
 services:
   - docker
-
-matrix:
-  include:
-    - python: 2.7
-      env: REQUIREMENTS=test-requirements-27.txt
-    - python: 3.6
-      env: REQUIREMENTS=test-requirements-36.txt
-  fast_finish: true
-
 install:
   - pip install pipenv
-  - pipenv install -r $REQUIREMENTS
+  - pipenv sync
+env:
+  jobs:
+    - MOLECULE_DISTRO=debian:stretch-slim
+    - MOLECULE_DISTRO=debian:buster-slim
 script:
-  - pipenv run molecule test
+  - pipenv run molecule test --all
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
+  email:
+    if: branch = main
+    on_success: change
+    on_failure: always
+    recipients:
+      - desarrollo.benders@idealista.com

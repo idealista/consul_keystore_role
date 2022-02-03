@@ -3,31 +3,29 @@ dependency:
   name: galaxy
 driver:
   name: docker
-lint:
-  name: yamllint
-  options:
-    config-file: .yamllint
+lint: |
+  yamllint -f colored .
+  ansible-lint --force-color .
 
 platforms:
   - name: consul01
     groups:
       - consul
-    image: geerlingguy/docker-debian9-ansible
-    image_version: latest
-    privileged: true
-    cap_add:
+    image: ${MOLECULE_DISTRO:-debian:buster-slim}
+    privileged: false
+    capabilities:
       - SYS_ADMIN
+    tmpfs:
+      - /run
+      - /run/lock
+    published_ports:
+      - "8500:8500"
     volumes:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
     command: '/lib/systemd/systemd'
+    stop_signal: "RTMIN+3"
 
 provisioner:
   name: ansible
-  lint:
-    name: ansible-lint
-scenario:
-  name: default
 verifier:
-  name: goss
-  lint:
-    name: yamllint
+  name: ansible
