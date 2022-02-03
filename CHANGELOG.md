@@ -7,6 +7,8 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a ch
 
 [Full Changelog](https://github.com/idealista/consul_keystore_role/compare/master...develop)
 
+## [2.0.0] 2022-02-03
+
 ### Added
 - *[#13](https://github.com/idealista/consul_keystore_role/issues/13) Support for put entire yml files to consul keystore* @adrian-arapiles
 - *Added tests for entire yml put on consul keystore* @adrian-arapiles
