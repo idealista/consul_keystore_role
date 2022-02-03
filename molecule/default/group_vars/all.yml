@@ -43,6 +43,12 @@ consul_keystore_name: test
 consul_keystore_expand_keys: true
 
 consul_keystore_properties_files:
-  - some_properties
-  - another_properties
-  - more
+  - name: some_properties.yml
+    format: kv
+  - name: another_properties.yml
+    format: kv
+  - name: more.properties
+    format: kv
+  - name: full_yml.yml
+    key: data
+    format: file

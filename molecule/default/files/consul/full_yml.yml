@@ -1,0 +1,9 @@
+---
+test:
+  full:
+    yml:
+      - item1
+      - item2
+another:
+  item:
+    property: 1

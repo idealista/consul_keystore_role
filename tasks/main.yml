@@ -1,10 +1,16 @@
 ---
-- name: Consul | Keys
-  include_tasks: consul_keys_publication.yml
+
+- name: Consul | Keys yml files
+  include_tasks: "manage_keys_{{ (file.name | basename).split('.') | last }}_file.yml"
   run_once: true
   vars:
-    consul_keystore_properties_file: "{{ item }}"
-  with_items: "{{ consul_keystore_properties_files }}"
+    consul_keystore_properties_file: "{{ file.name }}"
+    consul_keystore_properties_file_name: "{{ file.name | basename | splitext | first }}"
+    consul_keystore_properties_file_format: "{{ file.format }}"
+    consul_keystore_properties_key: "{{ file.key is defined | ternary(file.key, 'data') }}"
+  loop: "{{ consul_keystore_properties_files | flatten(levels=1) }}"
+  loop_control:
+    loop_var: file
   tags:
     - consul_keystore_configure
   when: consul_keystore_name is defined
