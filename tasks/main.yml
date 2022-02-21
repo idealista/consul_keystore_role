@@ -31,8 +31,6 @@
   loop_control:
     loop_var: key
   when:
-    - consul_keystore_name is defined
-    - consul_backup_all_properties is defined
     - consul_backup_all_properties | length > 0
     - consul_set_properties is defined
     - consul_set_properties | length > 0
