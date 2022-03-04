@@ -1,5 +1,10 @@
 ---
 
+- name: Consul | Set fact consul_backup_properties
+  set_fact:
+    consul_backup_all_properties: []
+    consul_set_properties: []
+
 - name: Consul | Keys yml files
   include_tasks: "manage_keys_{{ (file.name | basename).split('.') | last }}_file.yml"
   run_once: true
@@ -14,3 +19,18 @@
   tags:
     - consul_keystore_configure
   when: consul_keystore_name is defined
+
+- name: Consul | Delete diff keys
+  consul_kv:
+    host: "{{ consul_keystore_server }}"
+    port: "{{ consul_keystore_http_port }}"
+    token: "{{ consul_keystore_acl_token }}"
+    key: "{{ key }}"
+    state: absent
+  loop: "{{ consul_backup_all_properties | difference(consul_set_properties) }}"
+  loop_control:
+    loop_var: key
+  when:
+    - consul_backup_all_properties | length > 0
+    - consul_set_properties is defined
+    - consul_set_properties | length > 0
