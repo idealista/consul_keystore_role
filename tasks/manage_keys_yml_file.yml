@@ -26,6 +26,10 @@
       set_fact:
         consul_to_upload_properties: "{{ consul_yaml_file | flatten_collection(sep=consul_key_separator) }}"
 
+    - name: Update consul_setted_properties
+      set_fact:
+        consul_set_properties: "{{ consul_set_properties + ([consul_key_parent + '/'] | product(consul_to_upload_properties.keys()) | map('join')) | list }}"
+
     - name: Consul | Read {{ consul_key_parent }} properties
       consul_kv:
         host: "{{ consul_keystore_server }}"
@@ -38,16 +42,16 @@
 
     - name: Set consul_backup_keys
       set_fact:
-        consul_backup_keys: "{{ consul_backup_properties.data | map(attribute='Key') | map('regex_replace', consul_key_parent + '/') | list | filter | list }}"
+        consul_backup_keys: "{{ consul_backup_properties.data | map(attribute='Key') | list | filter | list }}"
 
     - name: Update consul_backup_keys expanded
       set_fact:
         consul_backup_keys: "{{ consul_backup_keys | map('regex_replace', '\\.', '/') | list }}"
       when: consul_keystore_expand_keys
 
-    - name: Set consul_remove_keys
+    - name: Update consul_backup_all_keys
       set_fact:
-        consul_remove_keys: "{{ consul_backup_keys | difference(consul_to_upload_properties.keys()) }}"
+        consul_backup_all_properties: "{{ consul_backup_all_properties + consul_backup_keys }}"
 
     - name: Consul | Upload / Update {{ consul_key_parent }} properties
       consul_kv:
@@ -59,28 +63,21 @@
       with_dict: "{{ consul_to_upload_properties }}"
       loop_control:
         loop_var: property
-
-    - name: Consul | Delete old {{ consul_key_parent }} properties
-      consul_kv:
-        host: "{{ consul_keystore_server }}"
-        port: "{{ consul_keystore_http_port }}"
-        token: "{{ consul_keystore_acl_token }}"
-        key: "{{ consul_key_parent + '/' + key }}"
-        state: absent
-      with_items: "{{ consul_remove_keys }}"
-      loop_control:
-        loop_var: key
   when: consul_check_yaml_file.stat.exists and consul_keystore_properties_file_format == 'kv'
 
 - name: Consul | Manage keys from {{ consul_keystore_properties_path }}/{{ consul_keystore_properties_file }} file
   block:
-    - name: Set consul_key_separator
+    - name: Set consul_to_upload_properties
       set_fact:
         consul_to_upload_properties: "{{ lookup('file', consul_keystore_properties_path + '/' + consul_keystore_properties_file) }}"
 
     - name: Set consul_key_parent
       set_fact:
         consul_key_parent: "{{ consul_keystore_mountpoint + '/' + consul_keystore_name + '/' + consul_keystore_properties_file_name }}"
+
+    - name: Update consul_backup_all_keys
+      set_fact:
+        consul_set_properties: "{{ consul_set_properties + [consul_key_parent + '/' + consul_keystore_properties_key] }}"
 
     - name: Consul | Read {{ consul_key_parent }} properties
       consul_kv:
@@ -92,6 +89,19 @@
         state: present
       register: consul_backup_properties
 
+    - name: Set consul_backup_keys
+      set_fact:
+        consul_backup_keys: "{{ consul_backup_properties.data | map(attribute='Key') | list | filter | list }}"
+
+    - name: Update consul_backup_keys expanded
+      set_fact:
+        consul_backup_keys: "{{ consul_backup_keys | map('regex_replace', '\\.', '/') | list }}"
+      when: consul_keystore_expand_keys
+
+    - name: Update consul_backup_all_keys
+      set_fact:
+        consul_backup_all_properties: "{{ consul_backup_all_properties + consul_backup_keys }}"
+
     - name: Consul | Upload / Update {{ consul_key_parent }} properties
       consul_kv:
         host: "{{ consul_keystore_server }}"
@@ -99,15 +109,4 @@
         token: "{{ consul_keystore_acl_token }}"
         key: "{{ consul_key_parent + '/' + consul_keystore_properties_key }}"
         value: "{{ consul_to_upload_properties }}"
-
-    - name: Consul | Delete old {{ consul_key_parent }} properties
-      consul_kv:
-        host: "{{ consul_keystore_server }}"
-        port: "{{ consul_keystore_http_port }}"
-        token: "{{ consul_keystore_acl_token }}"
-        key: "{{ consul_key_parent + '/' + key }}"
-        state: absent
-      with_items: "{{ consul_remove_keys }}"
-      loop_control:
-        loop_var: key
   when: consul_check_yaml_file.stat.exists and consul_keystore_properties_file_format == 'file'
