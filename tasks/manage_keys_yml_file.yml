@@ -7,6 +7,10 @@
   changed_when: false
   register: consul_check_yaml_file
 
+- name: Set consul_to_upload_properties empty to avoid error between plays
+  set_fact:
+    consul_to_upload_properties: {}
+
 - name: Consul | Manage keys from {{ consul_keystore_properties_path }}/{{ consul_keystore_properties_file }} KV
   block:
     - name: Read local properties
