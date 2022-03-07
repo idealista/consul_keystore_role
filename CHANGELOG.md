@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a ch
 
 [Full Changelog](https://github.com/idealista/consul_keystore_role/compare/master...develop)
 
+- Fix error with `consul_to_upload_properties` variable between plays. with_dict need exists even skipped task @adrian-arapiles
 ## [2.0.1] 2022-03-04
 ### Fixed
 - *[#13](https://github.com/idealista/consul_keystore_role/issues/13) Fixed delete steps making diff of whole keys and files processed. @adrian-arapiles*
