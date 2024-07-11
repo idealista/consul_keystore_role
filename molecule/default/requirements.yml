@@ -2,7 +2,7 @@
 
 - src: https://github.com/idealista/rsyslog_role.git
   scm: git
-  version: 2.2.1
+  version: 2.2.2
   name: rsyslog
 
 - src: https://github.com/idealista/consul_role.git
