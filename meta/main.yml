@@ -1,6 +1,7 @@
 ---
 
 galaxy_info:
+  role_name: consul_keystore
   author: idealista
   company: Idealista S.A.U.
   description: Consul Keystore Manager
@@ -11,8 +12,8 @@ galaxy_info:
       versions:
         - bullseye
         - buster
-galaxy-tags:
-  - consul
-  - consul-keystore
-  - consulKV
-  - keystore
+  galaxy_tags:
+    - consul
+    - consul-keystore
+    - consulKV
+    - keystore
