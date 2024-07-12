@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "61ba10a6028978c9fc2fe3e64a013881c307650ad9a89473baa724c41c8f71be"
+            "sha256": "7a285766da8e987f5d0e93240bcdfc51ba9d058c67b0fb44e060c98a926d8649"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -473,15 +473,6 @@
             "markers": "python_version >= '3.10'",
             "version": "==24.6.0"
         },
-        "molecule-docker": {
-            "hashes": [
-                "sha256:e15133395f10dbf60f75125aae7145f47747fc7158f2317698885013796252bf",
-                "sha256:fc4fd84a0e98787c47b97e59bf9697bdeddfcacc67c09af271183b55e09a7d7a"
-            ],
-            "index": "pypi",
-            "markers": "python_version >= '3.6'",
-            "version": "==1.1.0"
-        },
         "molecule-plugins": {
             "extras": [
                 "docker"
@@ -803,7 +794,7 @@
                 "sha256:f481f16baec5290e45aebdc2a5168ebc6d35189ae6fea7a58787613a25f6e875",
                 "sha256:fff3573c2db359f091e1589c3d7c5fc2f86f5bdb6f24252c2d8e539d4e45f412"
             ],
-            "markers": "python_version < '3.13' and platform_python_implementation == 'CPython'",
+            "markers": "platform_python_implementation == 'CPython' and python_version < '3.13'",
             "version": "==0.2.8"
         },
         "selinux": {
@@ -811,7 +802,6 @@
                 "sha256:2a88b337ac46ad0f06f557b2806c3df62421972f766673dd8bf26732fb75a9ea",
                 "sha256:ecf7add45c939e9dda682c390a2cd0a845c94a4793a2cce9e8870d4ee9501f99"
             ],
-            "markers": "sys_platform == 'linux'",
             "version": "==0.3.0"
         },
         "subprocess-tee": {
@@ -835,7 +825,7 @@
                 "sha256:17d3ad3758f9d0b5b4dedc770b65420d4dac62e680229c287bf24c9db856a478",
                 "sha256:a70222b86dea82fb382dd87b73278c10756c138bd6f8f714e2183128887b9eb2"
             ],
-            "markers": "python_version < '3.12'",
+            "markers": "python_version >= '3.8'",
             "version": "==8.5.2"
         },
         "yamllint": {
