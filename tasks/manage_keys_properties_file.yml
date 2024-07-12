@@ -1,24 +1,25 @@
 ---
-- name: Consul | Check {{ consul_keystore_properties_path }}/{{ consul_keystore_properties_file }}
-  stat:
+- name: "Consul | Check {{ consul_keystore_properties_path }}/{{ consul_keystore_properties_file }}"
+  ansible.builtin.stat:
     path: "{{ consul_keystore_properties_path }}/{{ consul_keystore_properties_file }}"
   delegate_to: localhost
   become: false
   changed_when: false
   register: consul_check_properties_file
 
-- name: Consul | Manage keys from {{ consul_keystore_properties_path }}/{{ consul_keystore_properties_file }}
+- name: "Consul | Manage keys from {{ consul_keystore_properties_path }}/{{ consul_keystore_properties_file }}"
+  when: consul_check_properties_file.stat.exists
   block:
     - name: Read local properties
-      set_fact:
+      ansible.builtin.set_fact:
         consul_to_upload_properties: "{{ lookup('file', consul_keystore_properties_path + '/' + consul_keystore_properties_file) | parse_properties }}"
 
     - name: Set consul_key_parent
-      set_fact:
+      ansible.builtin.set_fact:
         consul_key_parent: "{{ consul_keystore_mountpoint + '/' + consul_keystore_name + '/' + consul_keystore_properties_file_name }}"
 
-    - name: Consul | Read {{ consul_key_parent }} properties
-      consul_kv:
+    - name: "Consul | Read properties for {{ consul_key_parent }}"
+      community.general.consul_kv:
         host: "{{ consul_keystore_server }}"
         port: "{{ consul_keystore_http_port }}"
         token: "{{ consul_keystore_acl_token }}"
@@ -28,31 +29,31 @@
       register: consul_backup_properties
 
     - name: Set consul_backup_keys
-      set_fact:
+      ansible.builtin.set_fact:
         consul_backup_keys: "{{ consul_backup_properties.data | map(attribute='Key') | map('regex_replace', consul_key_parent + '/') | list | filter | list }}"
 
     - name: Update consul_backup_keys expanded
-      set_fact:
+      ansible.builtin.set_fact:
         consul_backup_keys: "{{ consul_backup_keys | map('regex_replace', '/', '.') | list }}"
       when: consul_keystore_expand_keys
 
     - name: Set consul_remove_keys
-      set_fact:
+      ansible.builtin.set_fact:
         consul_remove_keys: "{{ consul_backup_keys | difference(consul_to_upload_properties.keys()) }}"
 
-    - name: Consul | Upload / Update {{ consul_key_parent }} properties
-      consul_kv:
+    - name: "Consul | Upload / Update properties for {{ consul_key_parent }}"
+      community.general.consul_kv:
         host: "{{ consul_keystore_server }}"
         port: "{{ consul_keystore_http_port }}"
         token: "{{ consul_keystore_acl_token }}"
-        key: "{{ consul_key_parent + '/' + (( consul_keystore_expand_keys == True ) | ternary( property.key | regex_replace('\\.', '/'), property.key)) }}"
+        key: "{{ consul_key_parent + '/' + ((consul_keystore_expand_keys == True) | ternary(property.key | regex_replace('\\.', '/'), property.key)) }}"
         value: "{{ (property.value | bool) | ternary(property.value | lower, property.value) }}"
       with_dict: "{{ consul_to_upload_properties }}"
       loop_control:
         loop_var: property
 
-    - name: Consul | Delete old {{ consul_key_parent }} properties
-      consul_kv:
+    - name: "Consul | Delete old properties for {{ consul_key_parent }}"
+      community.general.consul_kv:
         host: "{{ consul_keystore_server }}"
         port: "{{ consul_keystore_http_port }}"
         token: "{{ consul_keystore_acl_token }}"
@@ -61,4 +62,3 @@
       with_items: "{{ consul_remove_keys }}"
       loop_control:
         loop_var: key
-  when: consul_check_properties_file.stat.exists

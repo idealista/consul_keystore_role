@@ -4,8 +4,8 @@
   hosts: consul
   tasks:
     - name: Install rsyslog
-      include_role:
+      ansible.builtin.include_role:
         name: rsyslog
     - name: Install consul
-      include_role:
+      ansible.builtin.include_role:
         name: consul
