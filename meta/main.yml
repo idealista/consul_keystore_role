@@ -14,6 +14,6 @@ galaxy_info:
         - buster
   galaxy_tags:
     - consul
-    - consul-keystore
-    - consulKV
+    - consulkeystore
+    - consulkv
     - keystore
