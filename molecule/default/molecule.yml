@@ -1,34 +1,41 @@
 ---
+
 dependency:
   name: galaxy
+
 driver:
   name: docker
+
 lint: |
-  yamllint -f colored .
-  ansible-lint --force-color .
+  yamllint .
+  ansible-lint .
 
 platforms:
-  - name: consul01
+  - name: consul-test
     groups:
       - consul
-    image: ${MOLECULE_DISTRO:-debian:buster-slim}
+    image: ${MOLECULE_DISTRO:-debian:bullseye-slim}
     privileged: false
     capabilities:
       - SYS_ADMIN
     tmpfs:
+      - /tmp
       - /run
       - /run/lock
     published_ports:
       - "8500:8500"
     volumes:
-      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+      - '/sys/fs/cgroup:/sys/fs/cgroup:rw'
+    cgroupns_mode: host
     command: '/lib/systemd/systemd'
-    stop_signal: "RTMIN+3"
+    stop_signal: 'RTMIN+3'
 
 provisioner:
   name: ansible
-  env:
-    PY_COLORS: 1
-    ANSIBLE_FORCE_COLOR: 1
+  log: true
+
+scenario:
+  name: default
+
 verifier:
   name: ansible

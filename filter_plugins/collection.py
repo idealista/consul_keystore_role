@@ -1,4 +1,9 @@
-import collections
+import sys
+
+if sys.version_info.major == 3 and sys.version_info.minor >= 10:
+    import collections.abc as collections
+else:
+    import collections
 
 
 def flatten(d, parent_key='', sep='.'):

@@ -1,6 +1,9 @@
 ---
+
+
+
 consul_server_nodes:
-  - consul01
+  - consul-test
 consul_domain: test
 consul_datacenter: test
 
