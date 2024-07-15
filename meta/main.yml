@@ -1,18 +1,19 @@
 ---
 
 galaxy_info:
+  role_name: consul_keystore
   author: idealista
   company: Idealista S.A.U.
   description: Consul Keystore Manager
   min_ansible_version: 2.10.7
   license: Apache 2.0
-  galaxy-tags:
-    - consul
-    - consul-keystore
-    - consulKV
-    - keystore
   platforms:
     - name: Debian
       versions:
-        - stretch
+        - bullseye
         - buster
+  galaxy_tags:
+    - consul
+    - consulkeystore
+    - consulkv
+    - keystore
