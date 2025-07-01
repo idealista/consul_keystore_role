@@ -37,7 +37,7 @@
         consul_set_properties: "{{ consul_set_properties + ([consul_key_parent + '/'] | product(consul_to_upload_properties.keys()) | map('join')) | list }}"
 
     - name: "Consul | Read properties for {{ consul_key_parent }}"
-      community.general.consul_kv:
+      ansible.builtin.consul_kv:
         host: "{{ consul_keystore_server }}"
         port: "{{ consul_keystore_http_port }}"
         token: "{{ consul_keystore_acl_token }}"
@@ -60,7 +60,7 @@
         consul_backup_all_properties: "{{ consul_backup_all_properties + consul_backup_keys }}"
 
     - name: "Consul | Upload / Update properties for {{ consul_key_parent }}"
-      community.general.consul_kv:
+      ansible.builtin.consul_kv:
         host: "{{ consul_keystore_server }}"
         port: "{{ consul_keystore_http_port }}"
         token: "{{ consul_keystore_acl_token }}"
@@ -86,7 +86,7 @@
         consul_set_properties: "{{ consul_set_properties + [consul_key_parent + '/' + consul_keystore_properties_key] }}"
 
     - name: "Consul | Read properties for {{ consul_key_parent }}"
-      community.general.consul_kv:
+      ansible.builtin.consul_kv:
         host: "{{ consul_keystore_server }}"
         port: "{{ consul_keystore_http_port }}"
         token: "{{ consul_keystore_acl_token }}"
@@ -109,7 +109,7 @@
         consul_backup_all_properties: "{{ consul_backup_all_properties + consul_backup_keys }}"
 
     - name: "Consul | Upload / Update properties for {{ consul_key_parent }} properties"
-      community.general.consul_kv:
+      ansible.builtin.consul_kv:
         host: "{{ consul_keystore_server }}"
         port: "{{ consul_keystore_http_port }}"
         token: "{{ consul_keystore_acl_token }}"
