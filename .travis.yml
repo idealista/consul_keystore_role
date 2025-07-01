@@ -10,7 +10,6 @@ jobs:
     python: 3.9
     install:
       - pip install pipenv
-      - rm Pipfile*
       - pipenv install -r test-requirements-ansible-2.9.27.txt --skip-lock
     env:
       - MOLECULE_DISTRO=debian:bullseye-slim
@@ -21,7 +20,6 @@ jobs:
     python: 3.11
     install:
       - pip install pipenv
-      - rm Pipfile*
       - pipenv install -r test-requirements-ansible-10.txt --skip-lock
     env:
       - MOLECULE_DISTRO=debian:bullseye-slim
