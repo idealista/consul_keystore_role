@@ -21,7 +21,7 @@
   when: consul_keystore_name is defined
 
 - name: Consul | Delete diff keys
-  community.general.consul_kv:
+  ansible.builtin.consul_kv:
     host: "{{ consul_keystore_server }}"
     port: "{{ consul_keystore_http_port }}"
     token: "{{ consul_keystore_acl_token }}"

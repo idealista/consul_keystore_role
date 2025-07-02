@@ -7,6 +7,14 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a ch
 
 [Full Changelog](https://github.com/idealista/consul_keystore_role/compare/master...develop)
 
+## [2.1.1] 2025-07-02
+
+### Fixed
+
+- *[Fix #25](https://github.com/idealista/consul_keystore_role/issues/25) use consul_kv module from ansible.builtin to fix breaking change* @ommarmol
+
+[2.1.1]: https://github.com/idealista/consul_keystore_role/tree/2.1.1
+
 ## [2.1.0] 2024-07-15
 
 ### Changed
