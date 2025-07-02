@@ -7,7 +7,7 @@ driver:
   name: docker
 
 lint: |
-  yamllint .
+  yamllint . &&
   ansible-lint .
 
 platforms:

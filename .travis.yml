@@ -1,17 +1,31 @@
 ---
 dist: focal
 language: python
-python: "3.11"
 os: linux
 services:
   - docker
-install:
-  - pip install pipenv
-  - pipenv sync
-env:
-  jobs:
-    - MOLECULE_DISTRO=debian:bullseye-slim
-    - MOLECULE_DISTRO=debian:buster-slim
+jobs:
+  include:
+  - &ansible-2_9_27
+    python: 3.9
+    install:
+      - pip install pipenv
+      - pipenv install -r test-requirements-ansible-2.9.27.txt --skip-lock
+    env:
+      - MOLECULE_DISTRO=debian:bullseye-slim
+  - <<: *ansible-2_9_27
+    env:
+      - MOLECULE_DISTRO=debian:buster-slim
+  - &ansible_10
+    python: 3.11
+    install:
+      - pip install pipenv
+      - pipenv install -r test-requirements-ansible-10.txt --skip-lock
+    env:
+      - MOLECULE_DISTRO=debian:bullseye-slim
+  - <<: *ansible_10
+    env:
+      - MOLECULE_DISTRO=debian:buster-slim
 script:
   - pipenv run molecule test --all
 
