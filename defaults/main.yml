@@ -28,3 +28,38 @@ consul_keystore_expand_keys: true
 #     key: data
 #     format: file
 consul_keystore_properties_files: []
+
+# DEPENDENCIES
+consul_keystore_install_dependencies: true  # Set to false to skip installation of dependencies like 'python-consul'
+consul_keystore_python_bin: "{{ (ansible_python.version.major | int == 3) | ternary('python3', 'python') }}"
+consul_keystore_python_pip_required_packages: "{{ consul_keystore_python_pip_required_packages_by_os[ansible_distribution ~'-' ~ansible_distribution_major_version] }}"
+consul_keystore_python_apt_required_packages: "{{ consul_keystore_python_apt_required_packages_by_os[ansible_distribution ~'-' ~ansible_distribution_major_version] }}"
+consul_keystore_apt_required_packages:
+  - "{{ consul_keystore_python_bin }}-pip"
+  - ca-certificates
+  - openssl
+  - unzip
+
+consul_keystore_python_apt_required_packages_by_os:
+  Debian-12:
+    - "{{ consul_keystore_python_bin }}-consul2"
+    - "{{ consul_keystore_python_bin }}-pyhcl"
+    - "{{ consul_keystore_python_bin }}-requests"
+  Debian-11:
+    - "{{ consul_keystore_python_bin }}-requests"
+  Debian-10:
+    - "{{ consul_keystore_python_bin }}-requests"
+  Debian-9:
+    - "{{ consul_keystore_python_bin }}-requests"
+
+consul_keystore_python_pip_required_packages_by_os:
+  Debian-12: []
+  Debian-11:
+    - python-consul
+    - pyhcl
+  Debian-10:
+    - python-consul
+    - pyhcl
+  Debian-9:
+    - python-consul
+    - pyhcl
