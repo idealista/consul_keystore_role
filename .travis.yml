@@ -12,15 +12,24 @@ jobs:
       - pip install pipenv
       - pipenv install -r test-requirements-ansible-2.9.27.txt --skip-lock
     env:
+      - MOLECULE_DISTRO=debian:bookworm-slim
+  - <<: *ansible-2_9_27
+    env:
       - MOLECULE_DISTRO=debian:bullseye-slim
   - <<: *ansible-2_9_27
     env:
       - MOLECULE_DISTRO=debian:buster-slim
+  - <<: *ansible-2_9_27
+    env:
+      - MOLECULE_DISTRO=debian:stretch-slim
   - &ansible_10
     python: 3.11
     install:
       - pip install pipenv
       - pipenv install -r test-requirements-ansible-10.txt --skip-lock
+    env:
+      - MOLECULE_DISTRO=debian:bookworm-slim
+  - <<: *ansible_10
     env:
       - MOLECULE_DISTRO=debian:bullseye-slim
   - <<: *ansible_10

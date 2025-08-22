@@ -22,13 +22,34 @@ platforms:
       - /tmp
       - /run
       - /run/lock
-    published_ports:
-      - "8500:8500"
     volumes:
       - '/sys/fs/cgroup:/sys/fs/cgroup:rw'
+    networks:
+      - name: consul-test
     cgroupns_mode: host
     command: '/lib/systemd/systemd'
     stop_signal: 'RTMIN+3'
+  - name: consul-server-test
+    image: consul:1.2.3
+    privileged: false
+    pre_build_image: true
+    exposed_ports:
+      - 8300/tcp
+      - 8301/tcp
+      - 8301/udp
+      - 8302/tcp
+      - 8302/udp
+      - 8500/tcp
+      - 8600/tcp
+      - 8600/udp
+    published_ports:
+      - 8500:8500/tcp
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:rw'
+    networks:
+      - name: consul-test
+    purge_networks: yes
+    command: "agent -server -datacenter=mainlocal -client 0.0.0.0 -ui -bootstrap -log-level=debug"
 
 provisioner:
   name: ansible

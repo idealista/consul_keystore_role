@@ -1,5 +1,12 @@
 ---
 
+- name: Consul | Install dependencies
+  ansible.builtin.include_tasks: install_dependencies.yml
+  when: consul_keystore_install_dependencies | bool
+  tags:
+    - consul_keystore_configure
+    - consul_keystore_install_dependencies
+
 - name: Consul | Set fact consul_backup_properties
   ansible.builtin.set_fact:
     consul_backup_all_properties: []
