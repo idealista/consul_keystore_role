@@ -6,6 +6,15 @@ FROM {{ item.registry.url }}/{{ item.image }}
 FROM {{ item.image }}
 {% endif %}
 
+{% if item.image is match(".*(buster|stretch).*") %}
+{% set archived_debian_version = "buster" if item.image is match(".*buster.*") else "stretch" %}
+RUN echo "deb http://archive.debian.org/debian/ {{ archived_debian_version }} main contrib non-free" > /etc/apt/sources.list && \
+    echo "deb-src http://archive.debian.org/debian/ {{ archived_debian_version }} main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb http://archive.debian.org/debian-security {{ archived_debian_version }}/updates main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb-src http://archive.debian.org/debian-security {{ archived_debian_version }}/updates main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb http://archive.debian.org/debian/ {{ archived_debian_version }}-backports main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb-src http://archive.debian.org/debian/ {{ archived_debian_version }}-backports main contrib non-free" >> /etc/apt/sources.list
+{% endif %}
 # install minimal packages for debian slim images
 RUN apt-get update && \
     apt-get install -y python3 sudo bash ca-certificates iproute2 systemd systemd-sysv python3-pip && \
