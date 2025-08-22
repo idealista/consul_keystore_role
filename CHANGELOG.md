@@ -7,6 +7,14 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a ch
 
 [Full Changelog](https://github.com/idealista/consul_keystore_role/compare/master...develop)
 
+## [2.2.0] 2025-08-22
+
+### Fixed
+
+- *[#22](https://github.com/idealista/consul_keystore_role/issues/21) Add support to manage Python dependencies* @ommarmol
+
+[2.2.0]: https://github.com/idealista/consul_keystore_role/tree/2.2.0
+
 ## [2.1.1] 2025-07-02
 
 ### Fixed
